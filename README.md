@@ -7,6 +7,6 @@ Requirements: <br>
 -clear (C) button <br>
 -add, subtract, mutliply, and divide buttons <br>
 
-![add_subtract_multiply_divide_calculator](https://cloud.githubusercontent.com/assets/10386036/19976436/08d69e64-a1c6-11e6-8cc0-5ad1a0e3663a.png) <br>
+![add_subtract_multiply_divide_calculator](https://cloud.githubusercontent.com/assets/10386036/19976543/8040c31c-a1c6-11e6-9d6b-202d5c477242.png) <br>
 <em>(preview)</em>
 
