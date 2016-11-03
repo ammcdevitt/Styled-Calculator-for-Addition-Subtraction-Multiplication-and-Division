@@ -1,0 +1,162 @@
+<!--Making a calculator using HTML, CSS, and JS-->
+
+<!doctype html>
+<html>
+
+<head>
+<title> Styled Calculator that Adds, Subtracts, Multiplies, and Divides</title>
+
+<!--start of internal style-->
+<style>
+
+	/*rounds the corners of just the entire calculator, not the individual buttons*/
+	table {
+		border-radius: 10px;
+	}
+
+	/*sets the border width, style and color of the calculator border*/
+	div table {
+		border: 3px solid gray;
+	}
+
+	/*removes the borders on the table cells so that the border doesn't 'compete' with that of the buttons*/
+	td {
+		border: none;
+	}
+	
+	/*styles the font style and size, height and width, background color, central text alignment, and rounded corners of buttons. */
+	input[type=button]{
+		font-family: sans-serif;
+		font-size: 25px;
+		width: 75px;
+		height: 75px;
+		background-color: #ffffff;
+		border-radius: 10px;
+	}
+
+	/*sets the font style and size, height, background color and rounded corners of the display field, by referencing the id display*/
+	#display {
+		font-family: sans-serif;
+		font-size: 25px;
+		height: 75px;
+		background-color: #B5D6E8;
+		border-radius: 10px;
+		text-align: center;
+	}
+
+	/*makes the +, -, *, / buttons grey by calling upon the class called operator held within the html input tag*/
+	input.operator {
+		background-color: #d3d3d3;
+	}
+
+</style>
+
+</head>
+
+<body>
+
+<!--beginning of form tag, which creates an HTML form for user input-->
+<form>
+	<!--centers the calculator on the page-->
+	<div align = 'center'>
+		<!--begins the table tag-->
+		<table>
+			<!--display area, which spans 4 columns and has an id set to 'display'. by default, the display area shows '0'; therefore, you will see this when the page is first loaded or refreshed.-->
+			<tr>
+				<td colspan = '4' id = 'display'>0</td>
+			</tr>
+			
+			<!--first row of buttons: 1, 2, 3, 4. for all table cells, the type set to button and value set to the respective number. onclick event enables interaction with JS once user clicks on button-->
+			<tr>
+				<td><input type = 'button' value = '1' onclick = "register('1')"></td>
+				<td><input type = 'button' value = '2' onclick = "register('2')"></td>
+				<td><input type = 'button' value = '3' onclick = "register('3')"></td>
+				<td><input type = 'button' value = '4' onclick = "register('4')"></td>
+			</tr>
+
+			<!--second row of buttons: 5, 6, 7, 8-->
+			<tr>
+
+				<td><input type = 'button' value = '5' onclick = "register('5')"></td>
+				<td><input type = 'button' value = '6' onclick = "register('6')"></td>
+				<td><input type = 'button' value = '7' onclick = "register('7')"></td>
+				<td><input type = 'button' value = '8' onclick = "register('8')"></td>
+			</tr>
+			
+			<!--third row of buttons: 9, +, -, 0-->
+			<tr>
+				<td><input type = 'button' value = '9' onclick = "register('9')"></td>
+				<td><input type = 'button' value = '+' class = 'operator' onclick = "register('+')"></td>
+				<td><input type = 'button' value = '-' class = 'operator' onclick = "register('-')"></td>
+				<td><input type = 'button' value = '0' onclick = "register('0')"></td>
+			</tr>
+
+			<!--fourth and final row of buttons: C, *, /, = . clear is set to '_clear_' because 'function clear ()' (referenced below in JS) has special meaning in JS-->
+			<tr>
+				<td><input type = 'button' value = 'C' onclick = "_clear_()"></td>
+				<td><input type = 'button' value = '*' class = 'operator' onclick = "register('*')"></td>
+				<td><input type = 'button' value = '/' class = 'operator' onclick = "register('/')"></td>
+				<td><input type = 'button' value = '=' onclick = "register('=')"></td>
+			</tr>
+		</table>
+	</div>
+
+</form>
+
+</body>
+
+<!--beginning of Javascript-->
+<script>
+	/*sets an empty variable named sequence*/
+	var sequence = '';
+
+	/*creates a function called register that passes in input*/
+	function register(input) {
+		/*in other words: seqence = sequence + input*/
+		sequence += input;
+		
+		/*defines variables for the first value a user inputs (a number), the second value (an operator), the third value (another number). the first and second inputs (numbers) are passed in as strings and parsed out and changed to integers. sets a variable named 'entry' to 'input', which will be helpful for displaying the numerical inputs to the display area as the user clicks on them. valueOne, operator, and valueTwo will help when printing the final product of addition, subtraction, multiplication, or division to the display area.*/
+		var valueOne = parseInt(sequence[0]);
+		var operator = sequence[1];
+		var valueTwo = parseInt(sequence[2]);
+		var entry = input;
+
+		/*prints out only the numerical entries from the user, by using isNaN function with determines whether or not the user's input is a number or not a number*/
+		if (isNaN(input) == false) {
+			document.getElementById('display').innerHTML = entry;
+		}
+
+		/*once the user clicks the '=' button, then the computer will either add, subtract, multiply, or divide the 2 numerical user inputs*/
+		if (input == '=') {
+			/*defines a new variable result, which will be the either the product of addition or subtraction*/
+			var result;
+			/*if the user inputs a '+', then the program adds the 2 numerical user inputs*/
+			if (operator == '+') {
+				result = valueOne + valueTwo;
+			}
+			/*if the user inputs a '-', then the program subtracts the 2 numerical user inputs*/
+			else if (operator == '-') {
+				result = valueOne - valueTwo;
+			}
+			/*if the user inputs a '-*', then the program multiplies the 2 numerical user inputs*/
+			else if (operator == '*') {
+				result = valueOne * valueTwo;
+			}
+			/*if the user inputs a '/', then the program divides the 2 numerical user inputs*/
+			else if (operator == '/') {
+				result = valueOne / valueTwo;
+			}
+
+			/*prints result of either adding, subtracting, dividing, or multiplying 2 numerical user inputs*/
+			document.getElementById('display').innerHTML = result;
+		}
+	}
+
+	/*uses a function to allow the clear button to reset to '0'. note that the built in JS 'function clear ()' clears the value of a single variable. therefore, 'function _clear_()' is used*/
+	function _clear_() {
+		document.getElementById('display').innerHTML = '0';
+	}
+
+</script>
+
+</html>
